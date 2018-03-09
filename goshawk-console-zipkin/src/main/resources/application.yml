@@ -1,0 +1,26 @@
+server:
+    port: 9001
+
+spring:
+    application:
+        name: goshawk-console-zipkin
+
+zipkin:
+    storage:
+        #type : one of `mem`, `mysql`, `cassandra`,`elasticsearch
+        type: elasticsearch
+        elasticsearch:
+            hosts: http://localhost:9200
+    collector:
+        kafka:
+            bootstrap-servers: localhost:9092
+            streams: 5
+            topic: metrics.zipkin
+            group-id: zipkin
+            overrides.auto.offset.reset: latest
+            overrides.max.poll.records: 50
+            overrides.session.timeout.ms: 60000
+
+management:
+    security:
+        enabled: false
